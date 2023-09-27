@@ -1,0 +1,63 @@
+﻿@using Crito.Models;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "LayoutWithBreadcrumb.cshtml";
+
+    var contactForm = new ContactForm();
+}
+
+<section class="contactinfo-section">
+    <div class="container">
+        <div class="infobox">
+            <div class="black-circle"><i class="fa-sharp fa-regular fa-location-dot"></i></div>
+            <h5>Visit us</h5>
+            <div class="info">
+                <p>@Model.Value("contactInformationStreetName")</p>
+                <p>@Model.Value("contactInformationPostalCode") @Model.Value("contactInformationCity")</p>
+            </div>
+        </div>
+        <div class="infobox">
+            <div class="black-circle"><i class="fa-regular fa-phone-volume"></i></div>
+            <h5>Call us</h5>
+            <div class="info">
+                <p>@Model.Value("contactInformationPhoneNumber1")</p>
+                <p>@Model.Value("contactInformationPhoneNumber2")</p>
+            </div>
+        </div>
+        <div class="infobox">
+            <div class="black-circle"><i class="fa-regular fa-envelope"></i></div>
+            <h5>Email us</h5>
+            <div class="info">
+                <p>@Model.Value("contactInformatioEmail1")</p>
+                <p>@Model.Value("contactInformationEmail2")</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contactform-section">
+    <div class="container">
+        <h2>Leave us a message for any information.</h2>
+
+        @using (Html.BeginUmbracoForm("Index","Contacts", FormMethod.Post))
+        {
+            <div asp-validation-summary="All"></div>
+            
+            <input asp-for="@contactForm.Name" type="text" placeholder="Name*">
+            <input asp-for="@contactForm.Email" type="email" placeholder="Email*">
+            <textarea asp-for="@contactForm.Message" placeholder="Your Message*"></textarea>
+            
+            <div class="d-grid">
+                <button type="submit" class="btn-theme">Send Message <i class="fa-solid fa-arrow-up-right"></i></button>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="googlemaps-section">
+    <iframe class="google-maps" src="@Model.Value("googleMapsURL")" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+
+            
